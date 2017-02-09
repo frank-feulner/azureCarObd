@@ -8,6 +8,8 @@ from azure.servicebus import ServiceBusService
 #Parameter aus dem uebergebenen Query lesen. Vorher pruefen, ob einer uebergeben wurde
 
 if (len(sys.argv) > 1):
+    print (sys.argv[0])
+    print (sys.argv[1])
     tmplist = sys.argv
     tmplist.pop(0)
     data = json.dumps(tmplist)
