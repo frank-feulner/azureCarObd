@@ -8,12 +8,23 @@ from azure.servicebus import ServiceBusService
 #Parameter aus dem uebergebenen Query lesen. Vorher pruefen, ob einer uebergeben wurde
 
 if (len(sys.argv) > 1):
-    print (sys.argv[0])
     print (sys.argv[1])
-    tmplist = sys.argv
-    tmplist.pop(0)
-    data = json.dumps(tmplist)
-    print(data)
+    tmpstring1 = sys.argv[1]
+    tmpstring1 = tmpstring1.replace("OK", "")
+    tmpstring = "{"
+    tmplist = tmpstring1.split("&")
+    for part in tmplist:
+        parts = part.split("=")
+        tmpstring += '"'
+        tmpstring += parts[0]
+        tmpstring += '":"'
+        tmpstring += parts[1]
+        tmpstring += '"'
+        tmpstring += ','
+    tmpstring += "}"
+    tmpstring = tmpstring.replace(",}", "}")
+
+    print(tmpstring)
 else:
     print('no arguments')
     sys.exit(0)
@@ -26,7 +37,7 @@ sbs = ServiceBusService("carObdHub",shared_access_key_name=key_name, shared_acce
 
 while(True):
 	print('sending...')
-	sbs.send_event('myObdHub', tmplist)
+	sbs.send_event('myObdHub', tmpstring)
 	print('sent!')
 	sys.exit(0)
 

@@ -8,7 +8,7 @@ putenv('PYTHONPATH=x');
         $tmp1 = parse_str($_SERVER['QUERY_STRING'], $params);
         //$tmp = shell_exec('/usr/bin/python3.5 azureupload.py ' . escapeshellarg(json_encode($params)));
         $tmp = shell_exec('/usr/bin/python3.5 azureupload.py ' . escapeshellarg($_SERVER['QUERY_STRING']));
-        echo json_encode($params);
+        echo $_SERVER['QUERY_STRING'];
     } else {
         echo "no query string";
     }
